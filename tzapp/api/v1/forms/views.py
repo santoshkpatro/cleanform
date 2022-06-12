@@ -1,4 +1,6 @@
-from rest_framework import generics, permissions, serializers, pagination
+from rest_framework import generics, permissions, serializers, pagination, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from tzapp.models.form import Form
 
 
@@ -56,3 +58,14 @@ class FormDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, FormOwnerPermission]
     serializer_class = FormDetailSerializer
     queryset = Form.objects.all()
+
+
+class FormBuilderView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            form = Form.objects.get(pk=pk, user=request.user)
+            return Response(data={'detail': 'Success'}, status=status.HTTP_200_OK)
+        except Form.DoesNotExist:
+            return Response(data={'detail': 'Form not found'}, status=status.HTTP_404_NOT_FOUND)
