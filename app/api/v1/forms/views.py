@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions, serializers, pagination, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from tzapp.models.form import Form
+from app.models.form import Form
 
 
 class FormOwnerPermission(permissions.BasePermission):

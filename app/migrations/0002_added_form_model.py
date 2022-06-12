@@ -10,7 +10,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tzapp', '0001_added_user_model'),
+        ('app', '0001_added_user_model'),
     ]
 
     operations = [

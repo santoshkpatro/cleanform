@@ -2,9 +2,9 @@ from django.db import transaction, DatabaseError
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from tzapp.models.elements.name_element import NameElement
-from tzapp.models.elements.address_element import AddressElement
-from tzapp.models.form import Form
+from app.models.elements.name_element import NameElement
+from app.models.elements.address_element import AddressElement
+from app.models.form import Form
 
 from .serializers import NameElementSerializer, AddressElementSerializer
 

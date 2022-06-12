@@ -61,7 +61,7 @@ class User(BaseUUIDModel, AbstractBaseUser):
         if not self.avatar:
             return None
 
-        return "assets.tzapp.com/%s".format(self.avatar)
+        return "assets.app.com/%s".format(self.avatar)
 
     """Admin panel config"""
 

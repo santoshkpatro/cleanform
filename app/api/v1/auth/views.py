@@ -6,7 +6,7 @@ from rest_framework import generics, status, serializers, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
-from tzapp.models.user import User
+from app.models.user import User
 
 
 class LoginSerializer(serializers.Serializer):
@@ -49,7 +49,7 @@ def registration_email(request):
 
     # Send an email
     print(encoded)
-    
+
     return Response(data={'detail': 'Registration email send!'}, status=status.HTTP_200_OK)
 
 
@@ -72,7 +72,7 @@ def register_view(request):
     except User.DoesNotExist:
         password = new_user_credentials.pop('password')
         confirm_password = new_user_credentials.pop('confirm_password')
-        
+
         # Checking for password and confirm password
         if password != confirm_password:
             return Response(data={'detail': 'Password and confirm password are not equal'}, status=status.HTTP_400_BAD_REQUEST)
@@ -84,11 +84,11 @@ def register_view(request):
 
         return Response(data={'detail': 'Account creation success'}, status=status.HTTP_201_CREATED)
 
-        
+
 @api_view(['POST'])
 def login_view(request):
     login_serializer = LoginSerializer(data=request.data)
-    
+
     # Checking for valid request body
     if not login_serializer.is_valid():
         return Response(data={'detail': 'Invalid data submission'}, status=status.HTTP_400_BAD_REQUEST)
@@ -109,11 +109,11 @@ def login_view(request):
     # JWT access and refresh token
     access_token = AccessToken.for_user(user)
     refresh_token = RefreshToken.for_user(user)
-    
+
     return Response(data={
-        'detail': 'Login success', 
-        'access_token': str(access_token), 
-        'refresh_token': str(refresh_token), 
+        'detail': 'Login success',
+        'access_token': str(access_token),
+        'refresh_token': str(refresh_token),
         'password_reset_required': False}, status=status.HTTP_200_OK)
 
 
