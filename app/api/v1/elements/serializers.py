@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from tzapp.models.elements.name_element import NameElement
-from tzapp.models.elements.address_element import AddressElement
+from app.models.elements.name_element import NameElement
+from app.models.elements.address_element import AddressElement
 
 
 class NameElementSerializer(serializers.ModelSerializer):

@@ -12,20 +12,12 @@ ALLOWED_HOSTS = ["*"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('PG_NAME', 'tzapp_development'),
-        'USER': os.environ.get('PG_USER', 'tzapp'),
-        'PASSWORD': os.environ.get('PG_PASSWORD', 'tzapp'),
+        'NAME': os.environ.get('PG_NAME', 'cleanform_development'),
+        'USER': os.environ.get('PG_USER', 'cleanform'),
+        'PASSWORD': os.environ.get('PG_PASSWORD', 'cleanform'),
         'HOST': os.environ.get('PG_HOST', 'localhost'),
         'PORT': os.environ.get('PG_PORT', '5432'),
     },
-    # 'replica_1': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': os.environ.get('PG_NAME', 'tzapp_development_replica_one'),
-    #     'USER': os.environ.get('PG_USER', 'tzapp'),
-    #     'PASSWORD': os.environ.get('PG_PASSWORD', 'tzapp'),
-    #     'HOST': os.environ.get('PG_HOST', 'localhost'),
-    #     'PORT': os.environ.get('PG_PORT', '5432'),
-    # }
 }
 
 REST_FRAMEWORK = {

@@ -8,7 +8,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tzapp', '0002_added_form_model'),
+        ('app', '0002_added_form_model'),
     ]
 
     operations = [
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True, null=True)),
                 ('input_field_font_size', models.IntegerField(blank=True, null=True)),
                 ('label_font_size', models.IntegerField(blank=True, null=True)),
-                ('form', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='form_name_elements', to='tzapp.form')),
+                ('form', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='form_name_elements', to='app.form')),
             ],
             options={
                 'db_table': 'name_elements',
