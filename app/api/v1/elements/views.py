@@ -20,8 +20,32 @@ element_model_map = {
 }
 
 
-class ElementCreateView(APIView):
+class ElementListView(APIView):
     permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, form_id):
+        try:
+            form = Form.objects.get(pk=form_id, user=request.user)
+
+            element = request.query_params.get('element', None)
+            if not element:
+                return Response(data={'detail': 'Please provide element type'}, status=status.HTTP_400_BAD_REQUEST)
+
+            ElementSerializer = element_serializer_map.get(element, None)
+            ElementModel = element_model_map.get(element, None)
+
+            if not ElementSerializer:
+                return Response(data={'detail': 'Element type not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            if not ElementModel:
+                return Response(data={'detail': 'Element type not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            elements = ElementModel.objects.filter(form=form)
+            serializer = ElementSerializer(instance=elements, many=True)
+
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        except Form.DoesNotExist:
+            return Response(data={'detail': 'Form not found'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, form_id):
         try:
@@ -53,11 +77,13 @@ class ElementCreateView(APIView):
                     new_element = ElementModel(**serializer.data, form=form)
                     new_element.save()
 
+                    print(form.order)
+
                     order = form.order
                     if order:
                         order.insert(int(position), {'element_type': element, 'element_id': str(new_element.id)})
                     else:
-                        order.append({'element_type': element, 'element_id': str(new_element.id)})
+                        order = [{'element_type': element, 'element_id': str(new_element.id)}]
 
                     form.order = order
                     form.save()

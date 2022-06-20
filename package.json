@@ -10,6 +10,9 @@
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress run --e2e'"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0-beta1",
     "pinia": "^2.0.14",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"
@@ -17,12 +20,10 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/test-utils": "^2.0.0",
-    "autoprefixer": "^10.4.7",
     "cypress": "^10.0.2",
     "jsdom": "^19.0.0",
-    "postcss": "^8.4.14",
+    "sass": "^1.52.3",
     "start-server-and-test": "^1.14.0",
-    "tailwindcss": "^3.1.2",
     "vite": "^2.9.9",
     "vitest": "^0.13.0"
   }

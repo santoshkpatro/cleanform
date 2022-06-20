@@ -3,12 +3,17 @@ from . base import *
 from dotenv import load_dotenv
 from datetime import timedelta
 
+# Loading env values from .env file
 load_dotenv()
 
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# Frontend BASE URL
+FRONTEND_BASE_URL = 'http://localhost:3000/'
+
+# Databases Config
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -18,8 +23,28 @@ DATABASES = {
         'HOST': os.environ.get('PG_HOST', 'localhost'),
         'PORT': os.environ.get('PG_PORT', '5432'),
     },
+    'replica1': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('PG_REPLICA1_NAME', 'cleanform_development_replica1'),
+        'USER': os.environ.get('PG_REPLICA1_USER', 'cleanform'),
+        'PASSWORD': os.environ.get('PG_REPLICA1_PASSWORD', 'cleanform'),
+        'HOST': os.environ.get('PG_REPLICA1_HOST', 'localhost'),
+        'PORT': os.environ.get('PG_REPLICA1_PORT', '5433'),
+    },
+    'replica2': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('PG_REPLICA1_NAME', 'cleanform_development_replica2'),
+        'USER': os.environ.get('PG_REPLICA1_USER', 'cleanform'),
+        'PASSWORD': os.environ.get('PG_REPLICA1_PASSWORD', 'cleanform'),
+        'HOST': os.environ.get('PG_REPLICA1_HOST', 'localhost'),
+        'PORT': os.environ.get('PG_REPLICA1_PORT', '5434'),
+    },
 }
 
+# Database Routing Config
+DATABASE_ROUTERS = ['app.db_routers.PrimaryReplicaRouter']
+
+# Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -28,6 +53,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+# JWT Config
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -59,3 +85,31 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# CORS Setup
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'log/emails'
+DEFAULT_FROM_EMAIL = 'Cleanform <noreply@cleanform.io>'
+
+# Logging
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': BASE_DIR / 'log/debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'rest_framework.request': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
