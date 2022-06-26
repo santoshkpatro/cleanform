@@ -1,4 +1,11 @@
-<script></script>
+<script setup>
+import { useAuthStore } from '../stores/auth'
+const authStore = useAuthStore()
+
+function handleLogout() {
+  authStore.removeAuthUser()
+}
+</script>
 
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
@@ -45,15 +52,22 @@
             <a class="nav-link disabled">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <ul class="navbar-nav">
+          <li class="nav-item" v-if="!authStore.isLoggedIn">
+            <router-link class="btn btn-sm btn-primary" :to="{ name: 'Login' }"
+              >Login</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="authStore.isLoggedIn">
+            <button
+              class="btn btn-sm btn-secondary"
+              href="#"
+              @click="handleLogout"
+            >
+              logout
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
