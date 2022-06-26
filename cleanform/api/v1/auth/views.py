@@ -40,7 +40,7 @@ def registration_email(request):
 
     try:
         subject = 'Registration request'
-        html_message = render_to_string('registration_email.html', {'email': email, 'registration_url': registration_url})
+        html_message = render_to_string('auth/registration_email.html', {'email': email, 'registration_url': registration_url})
         plain_message = strip_tags(html_message)
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = email
