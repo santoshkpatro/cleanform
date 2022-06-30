@@ -107,8 +107,10 @@ class ElementDetailView(APIView):
                 element = Element.objects.get(form=form, id=pk)
                 try:
                     form.elements.remove(element.id)
-                    form.save()
-                    element.delete()
+                    # Performing two queries inside a transaction
+                    with transaction.atomic():
+                        form.save()
+                        element.delete()    
                     return Response(data={'detail': 'Element deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
                 except DatabaseError:
                     return Response(data={'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

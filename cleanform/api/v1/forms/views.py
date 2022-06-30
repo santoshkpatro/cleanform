@@ -65,9 +65,11 @@ class FormDetailSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
+            'slug',
             'is_live',
             'elements',
             'created_at',
+            'updated_at',
         ]
 
 

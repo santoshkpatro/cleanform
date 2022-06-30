@@ -8,7 +8,8 @@ class Element(models.Model):
         ('page_break', 'page_break'),
         ('input_field', 'input_field'),
         ('checkbox_field', 'checkbox_field'),
-        ('radio_field', 'radio_field')
+        ('radio_field', 'radio_field'),
+        ('file_upload', 'file_upload'),
     )
     
     id = models.CharField(max_length=25, primary_key=True, editable=False)
@@ -19,6 +20,7 @@ class Element(models.Model):
     type = models.CharField(max_length=20, choices=ELEMENT_TYPE_CHOICES)
     properties = models.JSONField(blank=True, null=True)
     layouts = models.JSONField(blank=True, null=True)
+    validations = models.JSONField(blank=True, null=True)
 
     class Meta:
         db_table = 'elements'
