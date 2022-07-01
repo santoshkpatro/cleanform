@@ -54,7 +54,7 @@ function handleLogout() {
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item" v-if="!authStore.isLoggedIn">
-            <router-link class="btn btn-sm btn-primary" :to="{ name: 'Login' }"
+            <router-link class="btn btn-sm btn-primary" :to="{ name: 'login' }"
               >Login</router-link
             >
           </li>

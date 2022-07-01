@@ -23,6 +23,14 @@ from .serializers import LoginSerializer, RegisterSerializer, UserProfileSeriali
 
 
 @api_view(['GET'])
+def user_status(request):
+    if bool(request.user and request.user.is_authenticated):
+        return Response(data={'detail': 'User is authenticated'}, status=status.HTTP_200_OK)
+    else:
+        return Response(data={'detail': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['GET'])
 def registration_email(request):
     email = request.GET.get('email', None)
     resend = request.GET.get('resend', False)

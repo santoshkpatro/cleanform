@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,17 +24,43 @@ const router = createRouter({
       children: [
         {
           path: 'login',
-          name: 'Login',
+          name: 'login',
           component: () => import('../views/auth/Login.vue'),
         },
         {
           path: 'register',
-          name: 'Register',
+          name: 'register',
           component: () => import('../views/auth/Register.vue'),
         },
       ],
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/Profile.vue'),
+      meta: { requiresLogin: true }
+    },
+    {
+      path: '/forms',
+      name: 'forms',
+      component: () => import('../views/forms/FormList.vue'),
+      meta: { requiresLogin: true }
+    }
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  // console.log('To: ', to)
+  // console.log('From: ', from)
+
+  if(to.meta.requiresLogin) {
+    const access_token = localStorage.getItem('access_token')
+    if(!access_token) {
+      next({ name: 'login', query: { 'redirect': to.fullPath } })
+    }
+  }
+
+  next()
 })
 
 export default router
