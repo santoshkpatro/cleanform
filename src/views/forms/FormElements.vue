@@ -29,6 +29,7 @@ onMounted(async () => {
 
 <template>
   <div class="container">
+    <!-- Form Details -->
     <div class="card">
       <div class="card-body">
         <h5>Name: {{ form.title }}</h5>

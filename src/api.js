@@ -4,6 +4,13 @@ export const http = axios.create({
   baseURL: 'http://127.0.0.1:8000/v1/',
 })
 
+export const formHttp = axios.create({
+  baseURL: 'http://127.0.0.1:8000/'
+})
+
+export const formView = (slug) => formHttp.get(`f/${slug}/`)
+export const formSubmission = (slug, data) => formHttp.post(`f/${slug}/`, data=data)
+
 export const getUserStatus = (access_token) => http.get('auth/status/', {
   headers: {
     'Authorization': `Bearer ${access_token}`
