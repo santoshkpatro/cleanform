@@ -42,8 +42,20 @@ const router = createRouter({
     },
     {
       path: '/forms',
-      name: 'forms',
+      name: 'formList',
       component: () => import('../views/forms/FormList.vue'),
+      meta: { requiresLogin: true }
+    },
+    {
+      path: '/forms/:form_id',
+      name: 'formDetail',
+      component: () => import('../views/forms/FormDetail.vue'),
+      meta: { requiresLogin: true }
+    },
+    {
+      path: '/forms/:form_id/elements',
+      name: 'formElements',
+      component: () => import('../views/forms/FormElements.vue'),
       meta: { requiresLogin: true }
     }
   ],
