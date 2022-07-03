@@ -12,17 +12,17 @@ const router = useRouter()
 // register Handsontable's modules
 registerAllModules()
 
-const submissionData = reactive({
-  submissions: [],
-})
+const submissions = ref([])
 
 async function fetchSubmissions() {
   const { form_id } = route.params
 
   try {
-    const { data } = await getSubmissions(form_id)
+    const res = await getSubmissions(form_id)
+    if (res.status !== 200) throw new Error('Something went wrong')
 
-    submissionData.submissions = []
+    submissions.value = []
+    const { data } = res
 
     // refactoring data
     let columns = []
@@ -31,7 +31,7 @@ async function fetchSubmissions() {
     })
 
     columns = uniq(columns)
-    submissionData.submissions.push(columns)
+    submissions.value.push(columns)
 
     data.results.forEach((result) => {
       const row = []
@@ -44,21 +44,19 @@ async function fetchSubmissions() {
         }
       })
 
-      submissionData.submissions.push(row)
+      submissions.value.push(row)
     })
-
-    // HotTable.render()
   } catch (e) {
     console.log(e)
   }
 }
 
-onMounted(async () => {
-  await fetchSubmissions()
+onMounted(() => {
+  fetchSubmissions()
 })
 
-async function handleRefresh() {
-  await fetchSubmissions()
+function handleRefresh() {
+  fetchSubmissions()
 }
 </script>
 
@@ -88,7 +86,8 @@ async function handleRefresh() {
         </button>
       </h3>
       <hot-table
-        :data="submissionData.submissions"
+        v-if="submissions.length"
+        :data="submissions"
         :rowHeaders="true"
         :colHeaders="true"
         licenseKey="non-commercial-and-evaluation"
