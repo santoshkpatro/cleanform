@@ -2,6 +2,6 @@
 
 <template>
   <main class="container">
-    <button class="btn btn-primary">Test</button>
+    <h1>Cleanform</h1>
   </main>
 </template>
