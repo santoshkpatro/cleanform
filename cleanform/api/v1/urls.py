@@ -2,6 +2,7 @@ from django.urls import path
 from .auth.views import login_view, ProfileView, registration_email, RegisterView, user_status
 from .forms.views import FormListView, FormDetailView
 from .elements.views import ElementListCreateView, ElementDetailView
+from .submissions.views import SubmissionListView
 
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('forms/<uuid:pk>/', FormDetailView.as_view()),       # GET, PUT, PATCH, DELETE
     path('forms/<uuid:form_id>/elements/', ElementListCreateView.as_view()),
     path('forms/<uuid:form_id>/elements/<str:pk>/', ElementDetailView.as_view()),
+    path('forms/<uuid:form_id>/submissions/', SubmissionListView.as_view()),
 ]

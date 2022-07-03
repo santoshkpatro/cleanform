@@ -47,3 +47,5 @@ export const getForms = () => http.get('forms/')
 export const getFormDetails = (form_id) => http.get(`forms/${form_id}/`)
 
 export const getFormElements = (form_id) => http.get(`forms/${form_id}/elements/`)
+
+export const getSubmissions = (form_id) => http.get(`forms/${form_id}/submissions/`)

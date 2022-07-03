@@ -10,9 +10,12 @@
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress run --e2e'"
   },
   "dependencies": {
+    "@handsontable/vue3": "^12.1.0",
     "@popperjs/core": "^2.11.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0-beta1",
+    "handsontable": "^12.1.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.14",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"

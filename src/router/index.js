@@ -17,6 +17,11 @@ const router = createRouter({
       component: FormView
     },
     {
+      path: '/thankYou',
+      name: 'thankYou',
+      component: () => import('../views/ThankYou.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -62,6 +67,12 @@ const router = createRouter({
       path: '/forms/:form_id/elements',
       name: 'formElements',
       component: () => import('../views/forms/FormElements.vue'),
+      meta: { requiresLogin: true }
+    },
+    {
+      path: '/forms/:form_id/submissions',
+      name: 'formSubmissions',
+      component: () => import('../views/forms/submissions/SubmissionList.vue'),
       meta: { requiresLogin: true }
     }
   ],

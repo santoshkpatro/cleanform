@@ -67,6 +67,7 @@ function handlePrevious() {
 async function handleSubmission() {
   try {
     await formSubmission(form_slug.value, submission)
+    router.push({ name: 'thankYou' })
   } catch (e) {
     console.log(e)
   }
@@ -174,7 +175,7 @@ async function handleSubmission() {
         <!-- Submit button -->
         <div
           class="d-grid gap-2 mt-4"
-          v-show="selectedElement === elements.length - 1"
+          v-if="selectedElement === elements.length - 1"
         >
           <button class="btn btn-sm btn-primary" type="submit">Submit</button>
         </div>
