@@ -1,42 +1,66 @@
-# frontend
+# Cleanform
+A simple form builder
 
-This template should help get you started developing with Vue 3 in Vite.
+## Tech Stack
+### Backend - Django
+### Frontend - Vue
+### Database - Postgresql
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Customize configuration
+# Setting up the project locally
+### Prerequisites
+1- Make sure postgresql is installed in your system
+2- Create .env file in root of the project and copy the following code
+```
+VITE_API_BASE_URL=http://127.0.0.1:8000
+DJANGO_SETTINGS_MODULE=cleanform.settings.development
+```
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Backend
+### Step 1. Setting up the virtualenv
 
-```sh
+```
+# Linux/MacOS
+python3 -m venv venv
+
+# Windows (Command Prompt)
+python -m venv venv
+```
+
+### Step 2. Activating virtual env
+```
+# Linux/MacOS
+source venv/bin/activate
+
+# Windows (Command Prompt)
+venv\Scripts\activate.bat
+```
+### Step 3. Setting up database for cleanform Backend
+
+### Step 4. Installing the requirements
+```
+pip install -r requirements.txt
+```
+### Step 5. Running the db migrations
+```
+python3 manage.py migrate
+```
+### Step 6. Running the server
+```
+python3 manage.py runserver
+```
+
+
+## Frontend
+
+### Step 1 Installing the dependencies
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### Step 2 Starting the frontend server
+```
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
 ```

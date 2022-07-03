@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 const authStore = useAuthStore()
 
@@ -9,8 +10,10 @@ function handleLogout() {
 
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Cleanform</a>
+    <div class="container">
+      <router-link class="navbar-brand" :to="{ name: 'home' }"
+        >Cleanform</router-link
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -25,36 +28,24 @@ function handleLogout() {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link :to="{ name: 'formList' }" class="nav-link" href="#"
+            <router-link :to="{ name: 'formList' }" class="nav-link"
               >My Forms</router-link
             >
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li> -->
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item" v-if="!authStore.isLoggedIn">
-            <router-link class="btn btn-sm btn-primary" :to="{ name: 'login' }"
+            <router-link
+              class="btn btn-sm btn-primary mx-1"
+              :to="{ name: 'login' }"
               >Login</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="!authStore.isLoggedIn">
+            <router-link
+              class="btn btn-sm btn-dark mx-1"
+              :to="{ name: 'register' }"
+              >Register</router-link
             >
           </li>
           <li class="nav-item" v-if="authStore.isLoggedIn">

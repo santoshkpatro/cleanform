@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   verifyRegistrationToken,
   sendRegistrationEmail,
@@ -8,6 +8,7 @@ import {
 } from '../../api'
 
 const route = useRoute()
+const router = useRouter()
 const credentials = reactive({
   email: '',
   full_name: '',
@@ -18,6 +19,7 @@ const credentials = reactive({
 const user = reactive({
   new_email: '',
   registration_token: '',
+  message: '',
 })
 
 async function checkVerificationToken(token) {
@@ -31,7 +33,9 @@ async function checkVerificationToken(token) {
 
 async function sendRegistrationLink() {
   try {
-    sendRegistrationEmail(user.new_email)
+    await sendRegistrationEmail(user.new_email)
+    user.new_email = ''
+    user.message = 'Registration email has been sent'
   } catch (e) {
     console.log(e)
   }
@@ -40,7 +44,8 @@ async function sendRegistrationLink() {
 async function handleRegistration() {
   try {
     const { data } = await register(credentials, user.registration_token)
-    console.log(data)
+
+    router.push({ name: 'login' })
   } catch (e) {
     console.log(e)
   }
@@ -53,6 +58,9 @@ if (route.query.token) {
 </script>
 
 <template>
+  <div class="alert alert-success mb-3" role="alert" v-if="user.message">
+    {{ user.message }}
+  </div>
   <div class="container">
     <!-- Registration Email -->
     <div v-if="!route.query.token">

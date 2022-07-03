@@ -2,7 +2,6 @@
 import { reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { authLogin } from '../../api'
-// import router from '../../router';
 import { useAuthStore } from '../../stores/auth'
 
 const authStore = useAuthStore()
@@ -14,27 +13,20 @@ const credentials = reactive({
   password: '',
 })
 
-onMounted(() => {
-  console.log(route.query)
-})
-
 async function handleLogin() {
   try {
     const { data } = await authLogin({
       email: credentials.email,
       password: credentials.password,
     })
-    
-    authStore.setAuthUser(data.access_token)
 
-    // check for next query params
-    if(route.query.hasOwnProperty('redirect')) {
-      router.push(route.query.redirect)
-    } else {
-      // Redirecting to home page
-      router.push({name: 'home'})
+    authStore.setAuthUser(data.access_token)
+    const { redirect } = route.query
+    if (!redirect) {
+      router.push({ name: 'home' })
     }
 
+    router.push(redirect)
   } catch (e) {
     console.log(e.response.data.detail)
   }

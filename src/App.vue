@@ -1,22 +1,23 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Navbar from './components/Navbar.vue'
 import { useAuthStore } from './stores/auth'
 import { getUserStatus } from './api'
 
-const isLoading = ref(true)
+const isLoading = ref(false)
 
 const authStore = useAuthStore()
 
 onMounted(async () => {
   const access_token = localStorage.getItem('access_token')
   if (access_token) {
+    isLoading.value = true
+
     try {
       await getUserStatus(access_token)
       authStore.setAuthUser(access_token)
     } catch (e) {
-      console.log(e)
       localStorage.removeItem('access_token')
     } finally {
       isLoading.value = false

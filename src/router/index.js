@@ -30,20 +30,14 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/auth',
-      component: () => import('../views/auth/AuthView.vue'),
-      children: [
-        {
-          path: 'login',
-          name: 'login',
-          component: () => import('../views/auth/Login.vue'),
-        },
-        {
-          path: 'register',
-          name: 'register',
-          component: () => import('../views/auth/Register.vue'),
-        },
-      ],
+      path: '/auth/login',
+      name: 'login',
+      component: () => import('../views/auth/Login.vue'),
+    },
+    {
+      path: '/auth/register',
+      name: 'register',
+      component: () => import('../views/auth/Register.vue'),
     },
     {
       path: '/profile',
@@ -64,33 +58,35 @@ const router = createRouter({
       meta: { requiresLogin: true }
     },
     {
-      path: '/forms/:form_id/elements',
-      name: 'formElements',
-      component: () => import('../views/forms/FormElements.vue'),
-      meta: { requiresLogin: true }
-    },
-    {
       path: '/forms/:form_id/submissions',
       name: 'formSubmissions',
       component: () => import('../views/forms/submissions/SubmissionList.vue'),
       meta: { requiresLogin: true }
     },
-    { path: '/:pathMatch(.*)*', component: () => import('../views/404.vue') },
+    {
+      path: '/forms/:form_id/builder',
+      name: 'formBuilder',
+      component: () => import('../views/forms/builder/FormBuilder.vue'),
+      meta: { requiresLogin: true }
+    },
+    { path: '/:pathMatch(.*)*', 
+      component: () => import('../views/404.vue') 
+    },
   ],
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log('To: ', to)
-  // console.log('From: ', from)
-
   if(to.meta.requiresLogin) {
     const access_token = localStorage.getItem('access_token')
     if(!access_token) {
       next({ name: 'login', query: { 'redirect': to.fullPath } })
+    } else {
+      next()
     }
+  } else {
+    next()
   }
 
-  next()
 })
 
 export default router
