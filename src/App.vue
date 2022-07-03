@@ -1,9 +1,11 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import Navbar from './components/Navbar.vue'
 import { useAuthStore } from './stores/auth'
 import { getUserStatus } from './api'
+
+const isLoading = ref(true)
 
 const authStore = useAuthStore()
 
@@ -16,6 +18,8 @@ onMounted(async () => {
     } catch (e) {
       console.log(e)
       localStorage.removeItem('access_token')
+    } finally {
+      isLoading.value = false
     }
   }
 })
@@ -23,7 +27,7 @@ onMounted(async () => {
 
 <template>
   <Navbar />
-  <RouterView />
+  <RouterView v-if="!isLoading" />
 </template>
 
 <style>

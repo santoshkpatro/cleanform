@@ -10,7 +10,7 @@ function handleLogout() {
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Cleanform</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,12 +25,11 @@ function handleLogout() {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <router-link :to="{ name: 'formList' }" class="nav-link" href="#"
+              >My Forms</router-link
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -50,7 +49,7 @@ function handleLogout() {
           </li>
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
-          </li>
+          </li> -->
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item" v-if="!authStore.isLoggedIn">

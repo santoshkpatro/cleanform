@@ -74,7 +74,8 @@ const router = createRouter({
       name: 'formSubmissions',
       component: () => import('../views/forms/submissions/SubmissionList.vue'),
       meta: { requiresLogin: true }
-    }
+    },
+    { path: '/:pathMatch(.*)*', component: () => import('../views/404.vue') },
   ],
 })
 
