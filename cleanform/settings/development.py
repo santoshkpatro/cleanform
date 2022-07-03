@@ -44,15 +44,6 @@ DATABASES = {
 # Database Routing Config
 # DATABASE_ROUTERS = ['cleanform.db_routers.PrimaryReplicaRouter']
 
-# Rest Framework
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
-}
-
 # JWT Config
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
