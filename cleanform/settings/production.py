@@ -55,7 +55,7 @@ SIMPLE_JWT = {
 }
 
 # CORS Setup
-CORS_ALLOW_ALL_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [
     'https://cleanform.vercel.app'
 ]
 
