@@ -27,6 +27,16 @@ async function handleUpdateForm(form) {
   } catch (e) {
     console.log(e)
   } finally {
+  }
+}
+
+async function createNewForm() {
+  try {
+    const { data } = await createForm(newForm)
+    forms.value.push(data)
+  } catch (e) {
+    console.log(e)
+  } finally {
     newForm.title = ''
     newForm.description = ''
   }
