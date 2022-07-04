@@ -42,10 +42,18 @@ export const register = (credentials, token) =>
 
 export const getProfile = () => http.get('auth/profile/')
 
+export const createForm = (data) => http.post('forms/', data)
+
 export const getForms = () => http.get('forms/')
+
+export const updateForm = (form_id, data) => http.put(`forms/${form_id}/`, data)
 
 export const getFormDetails = (form_id) => http.get(`forms/${form_id}/`)
 
 export const getFormElements = (form_id) => http.get(`forms/${form_id}/elements/`)
+
+export const createFormElement = (form_id, data) => http.post(`forms/${form_id}/elements/`, data)
+
+export const updateFormElement = (form_id, element_id, new_data) => http.put(`forms/${form_id}/elements/${element_id}/`, new_data)
 
 export const getSubmissions = (form_id) => http.get(`forms/${form_id}/submissions/`)
