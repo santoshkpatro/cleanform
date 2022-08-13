@@ -56,7 +56,8 @@ SIMPLE_JWT = {
 
 # CORS Setup
 CORS_ALLOWED_ORIGINS = [
-    'https://cleanform.vercel.app'
+    'https://cleanform.vercel.app',
+    'https://cleanform.skpatro11.me',
 ]
 
 # JWT Config
@@ -101,3 +102,4 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', True)
 
 DEFAULT_FROM_EMAIL = 'Santosh Kumar Patro <hello@skpatro11.me>'
+NO_REPLY_EMAIL = 'Cleanform <noreply@cleanform.skpatro11.me>'
