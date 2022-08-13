@@ -27,8 +27,10 @@ class ElementListCreateView(APIView):
         try:
             form = Form.objects.get(pk=form_id, user=request.user)
             elements = Element.objects.filter(form=form)
-            ordered_elements = [elements.get(id=element_id) for element_id in form.elements]
+            ordered_elements = []
 
+            if elements.exists():
+                ordered_elements = [elements.get(id=element_id) for element_id in form.elements]
             element_serializer = ElementSerializer(ordered_elements, many=True)
             return Response(data=element_serializer.data, status=status.HTTP_200_OK)
         except Form.DoesNotExist:
