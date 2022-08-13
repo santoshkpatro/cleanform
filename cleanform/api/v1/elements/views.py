@@ -105,7 +105,6 @@ class ElementDetailView(APIView):
     def delete(self, request, form_id, pk):
         try:
             form = Form.objects.get(pk=form_id, user=request.user)
-            print(form.elements)
             try:
                 element = Element.objects.get(form=form, id=pk)
                 try:
