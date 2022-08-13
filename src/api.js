@@ -60,4 +60,6 @@ export const createFormElement = (form_id, data) => http.post(`forms/${form_id}/
 
 export const updateFormElement = (form_id, element_id, new_data) => http.put(`forms/${form_id}/elements/${element_id}/`, new_data)
 
+export const deleteFormElement = (formId, elementId) => http.delete(`forms/${formId}/elements/${elementId}/`)
+
 export const getSubmissions = (form_id) => http.get(`forms/${form_id}/submissions/`)

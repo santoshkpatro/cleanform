@@ -22,6 +22,14 @@ export const useBuilderStore = defineStore({
         },
         removeSelectedElement() {
             this.selectedElement = null
-        }
+        },
+        addNewElement(newElement) {
+            this.formElements.push(newElement)
+            this.form.elements.push(newElement.id)
+        },
+        deleteFormElement(element) {
+            this.formElements = this.formElements.filter(e => e.id !== element.id)
+            this.form.elements = this.formElements.map(e => e.id)
+        } 
     }
 })
