@@ -27,6 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <notifications />
   <Navbar />
   <RouterView v-if="!isLoading" />
 </template>

@@ -28,8 +28,8 @@ onMounted(async () => {
             <button
               @click="
                 router.push({
-                  name: 'formBuilder',
-                  params: { form_id: form.id },
+                  name: 'builder',
+                  params: { formId: form.id },
                 })
               "
               class="btn btn-sm btn-primary"

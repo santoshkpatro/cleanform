@@ -36,7 +36,7 @@ class FormView(APIView):
             }
             return Response(data=data, status=status.HTTP_200_OK)
         except Form.DoesNotExist:
-            return Response(data={'detail': 'Form not found'}, sattus=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': 'Form not found'}, status=status.HTTP_404_NOT_FOUND)
 
     # POST /f/<slug>/
     def post(self, request, slug):

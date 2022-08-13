@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FormView from '../views/FormView.vue'
+import Builder from '../views/forms/Builder.vue'
 
 
 const router = createRouter({
@@ -64,7 +65,14 @@ const router = createRouter({
       meta: { requiresLogin: true }
     },
     {
-      path: '/forms/:form_id/builder',
+      path: '/forms/:formId/builder',
+      name: 'builder',
+      component: Builder,
+      meta: { requiresLogin: true },
+      props: true
+    },
+    {
+      path: '/forms/:form_id/builder-old',
       name: 'formBuilder',
       component: () => import('../views/forms/builder/FormBuilder.vue'),
       meta: { requiresLogin: true }
