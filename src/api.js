@@ -48,6 +48,10 @@ export const getForms = () => http.get('forms/')
 
 export const updateForm = (form_id, data) => http.put(`forms/${form_id}/`, data)
 
+export const updateFormElementOrder = (form_id, new_order) => http.patch(`forms/${form_id}/`, {
+  "elements": new_order
+})
+
 export const getFormDetails = (form_id) => http.get(`forms/${form_id}/`)
 
 export const getFormElements = (form_id) => http.get(`forms/${form_id}/elements/`)
