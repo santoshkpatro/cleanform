@@ -84,23 +84,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'log/emails'
 DEFAULT_FROM_EMAIL = 'Cleanform <noreply@cleanform.io>'
+NO_REPLY_EMAIL = 'Cleanform <noreply@cleanform.skpatro11.me>'
 
-# Logging
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': BASE_DIR / 'log/debug.log',
-#         },
-#     },
-#     'loggers': {
-#         'rest_framework.request': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
+# Celery Configuration
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+
+# Cryptographic Setting
+FERNET_KEY = os.environ.get('FERNET_KEY', 'p6MJziptlTiSqmwHYNhhSSJxBx0CHMDBdkb2KusjBQQ=')
