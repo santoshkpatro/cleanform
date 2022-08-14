@@ -1,15 +1,7 @@
 import jwt
-import logging
-from urllib.parse import urlencode
-from smtplib import SMTPException
 
 from django.contrib.auth import authenticate
-from django.utils import timezone
 from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,8 +10,7 @@ from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from cleanform.models.user import User
 from .serializers import LoginSerializer, RegisterSerializer, UserProfileSerializer
-
-# logger = logging.getLogger(__name__)
+from .tasks import send_registration_email
 
 
 @api_view(['GET'])
@@ -38,31 +29,8 @@ def registration_email(request):
     if not email:
         return Response(data={'detail': 'Please provide email address'}, status=status.HTTP_400_BAD_REQUEST)
 
-    payload = {
-        'email': email,
-        'exp': timezone.now() + timezone.timedelta(minutes=10)
-    }
-    encoded_token = jwt.encode(payload=payload, key=settings.SECRET_KEY, algorithm="HS256")
-
-    registration_url = settings.FRONTEND_BASE_URL + 'auth/register/?' + urlencode({'token': encoded_token})
-
-    try:
-        subject = 'Registration request'
-        html_message = render_to_string('auth/registration_email.html', {'email': email, 'registration_url': registration_url})
-        plain_message = strip_tags(html_message)
-        from_email = settings.NO_REPLY_EMAIL
-        to_email = email
-
-        send_mail(
-            subject=subject,
-            message=plain_message,
-            from_email=from_email,
-            recipient_list=[to_email],
-            html_message=html_message,
-            fail_silently=False
-        )
-    except SMTPException as e:
-        print('Error')
+    # Task - Email Registration
+    send_registration_email.delay(email)
 
     return Response(data={'detail': 'Registration email send!'}, status=status.HTTP_200_OK)
 

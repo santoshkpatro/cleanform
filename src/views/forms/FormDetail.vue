@@ -2,10 +2,27 @@
 import { reactive, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getFormDetails } from '../../api'
+import { Bar, Line } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 const form = ref({})
 const route = useRoute()
 const router = useRouter()
+
+const chartData = reactive({
+  labels: ['January', 'February', 'March'],
+  datasets: [
+    { 
+      data: [40, 20, 12] 
+    }
+  ],
+})
+
+const chartOptions = reactive({
+  responsive: true,
+})
 
 onMounted(async () => {
   const { form_id } = route.params
@@ -50,5 +67,9 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+  </div>
+  <div class="container">
+    <h5>Analytics</h5>
+    <!-- <Bar :chart-options="chartOptions" :chart-data="chartData" /> -->
   </div>
 </template>

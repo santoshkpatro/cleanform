@@ -114,3 +114,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
+
+# Celery Base Configuration
+CELERY_IMPORTS = [
+    'cleanform.api.v1.auth.tasks'
+]

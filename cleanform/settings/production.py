@@ -103,3 +103,9 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', True)
 
 DEFAULT_FROM_EMAIL = 'Santosh Kumar Patro <hello@skpatro11.me>'
 NO_REPLY_EMAIL = 'Cleanform <noreply@cleanform.skpatro11.me>'
+
+# Celery Configuration
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+
+# Cryptographic Setting
+FERNET_KEY = os.environ.get('FERNET_KEY')
