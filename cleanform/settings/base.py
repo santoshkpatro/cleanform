@@ -117,5 +117,6 @@ REST_FRAMEWORK = {
 
 # Celery Base Configuration
 CELERY_IMPORTS = [
+    'cleanform.api.tasks',
     'cleanform.api.v1.auth.tasks'
 ]

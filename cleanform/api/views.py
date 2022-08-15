@@ -5,6 +5,7 @@ from cleanform.models.form import Form
 from cleanform.models.element import Element
 from cleanform.models.form_view import FormView
 from cleanform.models.submission import Submission
+from .tasks import send_email_response
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -59,7 +60,11 @@ class FormListView(APIView):
     def post(self, request, slug):
         try:
             form = Form.objects.get(slug=slug, is_live=True)
-            Submission.objects.create(form=form, data=request.data)
+            submission = Submission.objects.create(form=form, data=request.data)
+
+            # if form.is_responder_active:
+            #     send_email_response.delay(submission.id, submission.data)
+
             return Response(data={'detail': 'Submission submitted successfully'}, status=status.HTTP_200_OK)
         except Form.DoesNotExist:
             return Response(data={'detail': 'Form not found'}, status=status.HTTP_404_NOT_FOUND)
