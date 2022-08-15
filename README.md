@@ -51,6 +51,10 @@ python3 manage.py migrate
 ```
 python3 manage.py runserver
 ```
+### Step 7. Running the worker
+```
+celery -A cleanform worker -E -l INFO
+```
 
 
 ## Frontend
